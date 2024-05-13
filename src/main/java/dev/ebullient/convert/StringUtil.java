@@ -242,7 +242,10 @@ public class StringUtil {
 
     /**
      * {@link #joiningConjunct(String, String)} with a {@code ", "} delimiter.
-     *
+     * <pre>
+     *   // "one, two, and three"
+     *   Stream.of("one", "two", "three").collect(joiningConjunct(" and "))
+     * </pre>
      * @see #joiningConjunct(String, String)
      */
     public static <T> JoiningNonEmptyCollector<T> joiningConjunct(String finalDelimiter) {
@@ -252,6 +255,10 @@ public class StringUtil {
     /**
      * Returns a collector which performs like {@link #joinConjunct(String, String, List)}, but usable as a collector
      * for a stream.
+     * <pre>
+     *   // "one, two, and three"
+     *   Stream.of("one", "two", "three").collect(joiningConjunct(" and ", ", "))
+     * </pre>
      */
     public static <T> JoiningNonEmptyCollector<T> joiningConjunct(String finalDelimiter, String delimiter) {
         return new JoiningNonEmptyCollector<>(delimiter, finalDelimiter, true);
@@ -260,7 +267,10 @@ public class StringUtil {
     /**
      * A {@link java.util.stream.Collector} which converts the elements to strings, and joins the non-empty, non-null
      * strings into a single string. Allows providing an optional final delimiter that will be inserted before the
-     * last element.
+     * last element. Behaves like {@link #joinConjunct} when a final delimiter is provided.
+     *
+     * @see #joinConjunct(List, String, String, boolean)
+     * @see #join(String, List)
      *
      * @param delimiter The delimiter used to join the strings.
      * @param finalDelimiter The delimiter to use before the last element. Helpful for building strings like e.g.
